@@ -1,17 +1,23 @@
 <script setup lang="ts">
-import MyComponent from './components/MyComponent.vue';
+import CreateDefect from './components/CreateDefect.vue';
+import DefectList from './components/DefectList.vue';
 </script>
 
 <template>
   <header>
-    <img src="./assets/logo.svg" alt="Logo" />
+    <CreateDefect />
   </header>
-
   <main>
-    <h1>Первое вью приложение</h1>
-    <p>немного нервничаю</p>
-    <div>
-      <MyComponent />
-    </div>
+    <DefectList />
   </main>
+
 </template>
+
+<style scoped>
+header {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding-top: 1rem;
+}
+</style>
