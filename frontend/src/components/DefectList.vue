@@ -1,16 +1,13 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import DefectCard from './DefectCard.vue';
+import { useDefectsStore } from '@/stores/defects';
 
 interface Defect {
     title: string;
     message: string;
 }
-
-let defects = ref<Defect[]>([
-    { title: 'Ошибка 404', message: 'Страница не найдена' },
-    { title: 'Ошибка 500', message: 'Внутренняя ошибка сервера' },
-]);
+const defectsStore = useDefectsStore();
+const defects: Defect[] = defectsStore.list;
 
 </script>
 

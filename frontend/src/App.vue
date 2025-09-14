@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import CreateDefect from './components/CreateDefect.vue';
 import DefectList from './components/DefectList.vue';
+
+
 </script>
 
 <template>
-  <div class="app">
-    <div id="header">
-      <CreateDefect />
-    </div>
-    <div id="content">
-      <DefectList />
-    </div>
-  </div>
+  <header>
+    <CreateDefect />
+  </header>
+  <main>
+    <DefectList />
+  </main>
 </template>
 
 <style scoped>
@@ -25,13 +25,5 @@ import DefectList from './components/DefectList.vue';
   display: flex;
   align-items: center;
   justify-content: center;
-}
-#header {
-  background-color: #42b983;
-  padding: 20px;
-  color: white;
-}
-#content {
-  margin: 20px;
 }
 </style>

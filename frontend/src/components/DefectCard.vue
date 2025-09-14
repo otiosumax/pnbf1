@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-interface Defect{
+interface Defect {
     title: string;
     message: string;
 }
