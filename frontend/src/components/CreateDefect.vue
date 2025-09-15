@@ -1,10 +1,14 @@
 <script setup lang="ts">
+import { useDefectsStore } from '@/stores/defects';
 import { ref } from 'vue';
 let title = ref('');
 let message = ref('');
+const defectStore = useDefectsStore();
 let submitDefect = () => {
-    alert(`Дефект "${title.value}" зарегистрирован!`);
+    defectStore.addDefect({ title: title.value, message: message.value });
+    console.log('Submitted defect:', { title: title.value, message: message.value });
     title.value = '';
+    message.value = '';
 };
 </script>
 
