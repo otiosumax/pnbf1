@@ -5,20 +5,22 @@ import Icon from "./Icon.vue";
 </script>
 
 <template>
-    <div class="absolut min-w-64 min-h-100 flex flex-col items-center bg-rose-400 rounded-tr-lg text-white">
-        <h3 class="mt-4">Имя Фамильев</h3>
-        <p class="text-xs text-rose-100">ImyaFamilyev@mail.ru</p>
+    <div class="absolut px-4 py-2 flex flex-col gap-4 items-center bg-rose-400 rounded-tr-lg text-white">
+        <div class="flex flex-col items-center">
+            <h3 class="mt-4">Имя Фамильев</h3>
+            <p class="text-xs text-rose-100">ImyaFamilyev@mail.ru</p>
+        </div>
 
         <SidebarItem to="/" title="Dashboard">
-            <Icon name="view-dashboard" />
+            <Icon name="mdiViewDashboard" />
         </SidebarItem>
 
         <SidebarItem to="/profile" title="Profile">
-            <Icon name="account" />
+            <Icon name="mdiAccount" />
         </SidebarItem>
 
         <SidebarItem to="/settings" title="Settings">
-            <Icon name="cog" />
+            <Icon name="mdiCog" />
         </SidebarItem>
     </div>
 </template>

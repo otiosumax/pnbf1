@@ -6,6 +6,6 @@ import Sidebar from './components/Sidebar.vue';
 <template>
   <div class="">
     <Header class="fixed"/>
-    <Sidebar class="fixed left-0 bottom-0"/>
+    <Sidebar class="fixed left-0 mt-36 h-full w-4/16"/>
   </div>
 </template>
