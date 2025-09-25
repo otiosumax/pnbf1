@@ -1,14 +1,14 @@
 <script setup>
-
 defineProps({
-    isActive: Boolean,
-    title: String,
+    to: { type: String, required: true },
+    title: { type: String, required: true },
 })
 </script>
 
 <template>
-    <div class="flex items-center">
-        <slot class="text-white"/>
-        <p class="texti-rose-500">{{ title }}</p>
-    </div>
+    <router-link :to="to" class="flex items-center w-full px-4 py-2 rounded-md transition"
+        active-class="bg-white text-rose-400">
+        <slot class="mr-2" />
+        <p>{{ title }}</p>
+    </router-link>
 </template>

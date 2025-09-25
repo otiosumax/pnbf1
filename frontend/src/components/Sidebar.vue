@@ -9,6 +9,16 @@ import Icon from "./Icon.vue";
         <h3 class="mt-4">Имя Фамильев</h3>
         <p class="text-xs text-rose-100">ImyaFamilyev@mail.ru</p>
 
-        <SidebarItem title="Dashboard"><Icon name="view-dashboard"/></SidebarItem>
+        <SidebarItem to="/" title="Dashboard">
+            <Icon name="view-dashboard" />
+        </SidebarItem>
+
+        <SidebarItem to="/profile" title="Profile">
+            <Icon name="account" />
+        </SidebarItem>
+
+        <SidebarItem to="/settings" title="Settings">
+            <Icon name="cog" />
+        </SidebarItem>
     </div>
 </template>

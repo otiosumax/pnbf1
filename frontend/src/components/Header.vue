@@ -4,7 +4,7 @@ import Icon from './Icon.vue';
 </script>
 
 <template>
-    <div class="w-full bg-yellow-50 shadow-sm flex gap-8 items-center justify-between p-4">
+    <div class="w-full bg-yellow-50 shadow-sm flex gap-8 items-center justify-between py-4 px-8">
         <div
             class="text-3xl font-semibold text-rose-400 cursor-pointer transition hover:text-rose-500 active:text-rose-600">
             <span class="">De</span><span class="text-black">Fectus</span>
