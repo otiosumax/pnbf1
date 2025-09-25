@@ -15,6 +15,10 @@ import Icon from "./Icon.vue";
             <Icon name="mdiViewDashboard" />
         </SidebarItem>
 
+        <SidebarItem to="/tasks" title="Tasks">
+            <Icon name="mdiCheckboxMarked" />
+        </SidebarItem>
+        
         <SidebarItem to="/profile" title="Profile">
             <Icon name="mdiAccount" />
         </SidebarItem>
