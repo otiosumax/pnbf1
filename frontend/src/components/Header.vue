@@ -29,11 +29,12 @@ onUnmounted(() => {
             </div>
         </router-link>
 
-        <div class="relative flex flex-1 max-w-128 rounded-xl transition">
+        <!-- Поисковая строка -->
+        <!-- <div class="relative flex flex-1 max-w-128 rounded-xl transition">
             <input class="w-full bg-white outline-none rounded-xl h-10 px-4 shadow-sm focus:shadow-xl transition" />
             <Icon name="mdiMagnify"
                 class="absolute right-0 bg-rose-400 text-white rounded-r-xl h-10 w-10 cursor-pointer transition hover:bg-rose-500 active:bg-rose-600" />
-        </div>
+        </div> -->
 
         <div class="flex flex-col cursor-default select-none">
             <p class="text-bold">{{ currentDate }}</p>
