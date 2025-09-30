@@ -21,7 +21,7 @@ const menu = [
       <h3 class="mt-4">Имя Фамильев</h3>
       <p class="text-xs text-rose-100">ImyaFamilyev@mail.ru</p>
     </div>
-
+    <!--  -->
     <SidebarItem
       v-for="item in menu.filter((i) => {i.roles.includes(userStore.role)})"
       :key="item.to"
