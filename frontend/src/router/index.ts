@@ -5,6 +5,7 @@ import Projects from "@/views/Projects.vue";
 import Reports from "@/views/Reports.vue";
 import Profile from "@/views/Profile.vue";
 import Login from "@/views/Login.vue";
+import Register from "@/views/Register.vue"
 import { useUserStore, UserRole } from "@/stores/user";
 
 const routes = [
@@ -42,6 +43,12 @@ const routes = [
     path: "/login",
     name: "login",
     component: Login,
+    meta: { public: true },
+  },
+  {
+    path: "/register",
+    name: "register",
+    component: Register,
     meta: { public: true },
   },
 ];

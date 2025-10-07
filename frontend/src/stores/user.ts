@@ -14,14 +14,34 @@ export const useUserStore = defineStore("user", {
   actions: {
     setRole(newRole: UserRole) {
       this.role = newRole;
+      this.saveToLocalStorage();
     },
     login(role: UserRole) {
       this.role = role;
       this.isAuthenticated = true;
+      this.saveToLocalStorage();
     },
     logout() {
       this.role = UserRole.engineer;
       this.isAuthenticated = false;
+      localStorage.removeItem("userStore");
+    },
+    saveToLocalStorage() {
+      localStorage.setItem(
+        "userStore",
+        JSON.stringify({
+          role: this.role,
+          isAuthenticated: this.isAuthenticated,
+        })
+      );
+    },
+    loadFromLocalStorage() {
+      const data = localStorage.getItem("userStore");
+      if (data) {
+        const parsed = JSON.parse(data);
+        this.role = parsed.role;
+        this.isAuthenticated = parsed.isAuthenticated;
+      }
     },
   },
 });
