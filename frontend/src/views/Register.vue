@@ -1,6 +1,6 @@
 <script setup>
 import Icon from '@/components/Icon.vue';
-import { ref } from 'v';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router'
 
 const router = useRouter();
