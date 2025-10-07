@@ -1,21 +1,27 @@
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia";
 
-export const useUserStore = defineStore('user', {
+export enum UserRole {
+  engineer = "engineer",
+  manager = "manager",
+  admin = "admin",
+}
+
+export const useUserStore = defineStore("user", {
   state: () => ({
-    role: 'engineer', // по умолчанию
-    isAuthenticated: false
+    role: UserRole.engineer,
+    isAuthenticated: false,
   }),
   actions: {
-    setRole(newRole: string) {
-      this.role = newRole
+    setRole(newRole: UserRole) {
+      this.role = newRole;
     },
-    login(role: string) {
-      this.role = role
-      this.isAuthenticated = true
+    login(role: UserRole) {
+      this.role = role;
+      this.isAuthenticated = true;
     },
     logout() {
-      this.role = 'engineer'
-      this.isAuthenticated = false
-    }
-  }
-})
+      this.role = UserRole.engineer;
+      this.isAuthenticated = false;
+    },
+  },
+});

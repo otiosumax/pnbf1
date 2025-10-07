@@ -5,38 +5,38 @@ import Projects from "@/views/Projects.vue";
 import Reports from "@/views/Reports.vue";
 import Profile from "@/views/Profile.vue";
 import Login from "@/views/Login.vue";
-import { useUserStore } from "@/stores/user";
+import { useUserStore, UserRole } from "@/stores/user";
 
 const routes = [
   {
     path: "/",
     name: "dashboard",
     component: Dashboard,
-    meta: { roles: ["engineer", "manager", "admin"] },
+    meta: { roles: [UserRole.engineer, UserRole.manager, UserRole.admin] },
   },
   {
     path: "/tasks",
     name: "tasks",
     component: Tasks,
-    meta: { roles: ["engineer", "manager"] },
+    meta: { roles: [UserRole.engineer, UserRole.manager] },
   },
   {
     path: "/projects",
     name: "projects",
     component: Projects,
-    meta: { roles: ["manager", "admin"] },
+    meta: { roles: [UserRole.manager, UserRole.admin] },
   },
   {
     path: "/reports",
     name: "reports",
     component: Reports,
-    meta: { roles: ["admin"] },
+    meta: { roles: [UserRole.admin] },
   },
   {
     path: "/profile",
     name: "profile",
     component: Profile,
-    meta: { roles: ["engineer", "manager", "admin"] },
+    meta: { roles: [UserRole.engineer, UserRole.manager, UserRole.admin] },
   },
   {
     path: "/login",
@@ -51,26 +51,25 @@ const router = createRouter({
   routes,
 });
 
-// router.beforeEach((to, from, next) => {
-//   const userStore = useUserStore()
+router.beforeEach((to, from, next) => {
+  const userStore = useUserStore();
 
-//   // публичные страницы
-//   if (to.meta.public) {
-//     return next()
-//   }
+  // публичные страницы
+  if (to.meta.public) {
+    return next();
+  }
 
-//   // если не залогинен → на логин
-//   if (!userStore.isAuthenticated) {
-//     return next('/login')
-//   }
+  // если не залогинен → на логин
+  if (!userStore.isAuthenticated) {
+    return next("/login");
+  }
 
-//   // если у пользователя нет доступа к маршруту → редирект
-//   if (to.meta.roles && !to.meta.roles.includes(userStore.role)) {
-//     return next('/') // можно сделать страницу "Нет доступа"
-//   }
+  // если у пользователя нет доступа к маршруту → редирект
+  if (to.meta.roles && !to.meta.roles.includes(userStore.role)) {
+    return next("/"); // можно сделать страницу "Нет доступа"
+  }
 
-//   next()
-// })
-
+  next();
+});
 
 export default router;
