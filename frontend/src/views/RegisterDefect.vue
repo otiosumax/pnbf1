@@ -1,23 +1,28 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useProjectsStore } from '@/stores/projects';
+import type { Project } from '@/stores/projects';
 import { saveDefectImage } from '@/stores/images';
 
 const router = useRouter();
 const projectsStore = useProjectsStore();
 
+const projects = projectsStore.projects; 
 const projectId = ref<number | null>(null);
 const title = ref('');
 const description = ref('');
 
-const projects = projectsStore.projects;
+onMounted(() => {
+    projectsStore.loadFromLocalStorage();
+});
 
 const registerDefect = () => {
     if (!projectId.value || !title.value || !description.value) {
         alert('Заполни все поля!');
         return;
     }
+    projectsStore.addDefect(projectId.value, title.value, description.value);
     router.push('/defects');
 };
 

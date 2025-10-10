@@ -8,7 +8,7 @@ const projectsStore = useProjectsStore();
 const selectedProjectId = ref(null);
 
 onMounted(() => {
-    projectsStore.loadFromLocalStorage();
+    // projectsStore.loadFromLocalStorage();
     projects.value = projectsStore.projects;
 });
 
