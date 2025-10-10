@@ -1,10 +1,16 @@
 import { defineStore } from "pinia";
 
+export enum DefectStatus {
+  open = "open",
+  closed = "closed",
+}
+
 export interface Defect {
   id: number;
+  projectId: number;
   title: string;
   description: string;
-  status: "open" | "closed";
+  status: DefectStatus;
 }
 
 export interface Project {
@@ -64,12 +70,23 @@ export const useProjectsStore = defineStore("projects", {
         const newDefect: Defect = {
           id: Date.now(),
           title,
+          projectId: project.id,
           description,
-          status: "open",
+          status: DefectStatus.open,
         };
         project.defects.push(newDefect);
         this.saveToLocalStorage();
       }
+    },
+
+    getAllDefects() {
+      return this.projects.flatMap((project) =>
+        project.defects.map((defect) => ({
+          ...defect,
+          projectId: project.id,
+          projectName: project.name,
+        }))
+      );
     },
 
     updateDefect(

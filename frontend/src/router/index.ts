@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Dashboard from "@/views/Dashboard.vue";
 import Defects from "@/views/Defects.vue";
+import RegisterDefect from "@/views/RegisterDefect.vue";
 import Projects from "@/views/Projects.vue";
 import Reports from "@/views/Reports.vue";
 import Profile from "@/views/Profile.vue";
 import Login from "@/views/Login.vue";
-import Register from "@/views/Register.vue"
+import Register from "@/views/Register.vue";
 import { useUserStore, UserRole } from "@/stores/user";
 
 const routes = [
@@ -20,6 +21,12 @@ const routes = [
     name: "defects",
     component: Defects,
     meta: { roles: [UserRole.engineer, UserRole.manager, UserRole.admin] },
+  },
+  {
+    path: "/defects/register",
+    name: "registerDefect",
+    component: RegisterDefect,
+    meta: { roles: [UserRole.engineer, UserRole.admin] },
   },
   {
     path: "/projects",

@@ -36,7 +36,7 @@ const deleteProject = (id) => {
 </script>
 
 <template>
-    <div class="border border-gray-400 rounded-lg h-full px-4 pt-4 pb-2">
+    <div class="border border-gray-400 rounded-lg px-4 pt-4 pb-2">
         <div class="flex items-center justify-between gap-4">
             <p class="text-lg">Проектов: {{ projects.length }}</p>
             <button @click="createProject"

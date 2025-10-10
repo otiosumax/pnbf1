@@ -20,7 +20,7 @@ const updateInfo = () => {
 </script>
 
 <template>
-    <div class="border border-gray-400 rounded-lg py-4 px-4 h-full relative">
+    <div class="border border-gray-400 rounded-lg py-4 px-4 relative">
         <div class="flex flex-col gap-4 border border-gray-400 rounded-lg px-4 py-2">
             <div class="">
                 <p>Фамилия</p><input class="border border-gray-400 rounded-lg pl-2" v-model="surname" />
