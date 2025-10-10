@@ -1,82 +1,62 @@
-# Приложение для контроля дефектов строительных работ DeFectus
+# 🧱 Defect Tracker — система учёта и контроля дефектов
 
-## Запуск приложения
-Для запуска приложения скопируйте репозиторий на своё устройство, перейдите в корневую папку проекта и пропишите в консоль следующие команды:
+> Веб-приложение для регистрации, назначения и отслеживания дефектов на строительных объектах.  
+> Разработано в рамках учебного проекта.
+
+---
+
+## 🚀 Цель проекта
+Создать централизованную систему для:
+- регистрации дефектов инженерами;
+- назначения задач менеджерами;
+- контроля исполнения и формирования отчётов для руководителей.
+
+Приложение должно упростить коммуникацию между участниками проекта и сократить время на поиск и устранение дефектов.
+
+---
+
+## 📦 Установка и запуск
+1. Клонируй проект
+``` bash
+git clone https://github.com/otiosumax/pnbf1.git
+cd pnfb1
 ```
+2. Установи зависимости
+``` bash
 cd frontend
+npm install
 npm run dev
 ```
+
 ---
-## ER-диаграмма:
-``` mermaid
-erDiagram
-Пользователь {
-int id PK
-string name
-string email
-string password_hash
-string role
-datetime created_at
-}
 
-Проeкт {
-int id PK
-string title
-string description
-int owner_id FK
-datetime start_date
-datetime end_date
-}
+## 🧩 Основной функционал
 
-Дефект {
-int id PK
-int project_id FK
-string title
-string description
-string priority
-string status
-int assignee_id FK
-int created_by FK
-datetime due_date
-datetime created_at
-datetime updated_at
-}
-  
-Приложение {
-int id PK
-int defect_id FK
-string filename
-string url
-int uploaded_by FK
-datetime uploaded_at
-}
-  
-Комментарий {
-int id PK
-int defect_id FK
-int author_id FK
-string text
-datetime created_at
-}
-  
-Лог {
-int id PK
-string entity
-int entity_id
-string action
-int user_id FK
-string details
-datetime timestamp
-}
-  
-Пользователь ||--o{ Проeкт : "owns"
-Проeкт ||--o{ Дефект : "has"
-Пользователь ||--o{ Дефект : "creates"
-Пользователь ||--o{ Дефект : "assigned_to"
-Дефект ||--o{ Приложение : "has"
-Дефект ||--o{ Комментарий : "has"
-Пользователь ||--o{ Комментарий : "writes"
-Пользователь ||--o{ Приложение : "uploads"
-Пользователь ||--o{ Лог : "generates"
-```
-## Use case диаграмма:
+### 👷 Инженер
+- Регистрация новых дефектов  
+- Добавление описаний, фото и комментариев  
+- Обновление статусов задач  
+- Просмотр назначенных задач
+
+### 🧑‍💼 Менеджер
+- Назначение задач инженерам  
+- Установка сроков выполнения  
+- Формирование отчётов  
+- Просмотр всех дефектов по проекту  
+
+### 🕴️ Руководитель / Заказчик
+- Просмотр отчётов  
+- Анализ количества и состояния дефектов по объектам  
+
+---
+
+## ⚙️ Технологический стек
+
+Frontend:
+	•	Vue 3 с Composition API
+	•	TypeScript
+	•	Pinia (для состояния)
+	•	Vite
+	•	TailwindCSS / shadcn для стилизации
+ 	•	IndexedDB — хранение изображений локально до загрузки
+
