@@ -16,11 +16,11 @@ const redirectToRegisterDefect = () => {
 
 <template>
     <div class="grid grid-cols-2 gap-4 relative">
-        <div class="flex flex-col items-end rounded-lg border border-gray-400 shadow-md px-4 py-2">
-            <button @click="redirectToRegisterDefect" class="bg-rose-400 text-white rounded-lg py-1 px-3 transition hover:bg-rose-500 active:bg-rose-600">
+        <div class="flex flex-col items-center rounded-lg border border-gray-400 shadow-md px-4 py-2">
+            <button @click="redirectToRegisterDefect" class="bg-rose-400 w-full text-white rounded-lg py-1 px-3 transition hover:bg-rose-500 active:bg-rose-600">
                 Зарегистрироать дефект
             </button>
-            <DefectCard v-for="defect in defects" />
+            <DefectCard v-for="defect in defects" :defect="defect" />
         </div>
         <div class="rounded-lg border border-gray-400 shadow-md px-4 py-2">
 
