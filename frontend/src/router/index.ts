@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Dashboard from "@/views/Dashboard.vue";
-import Tasks from "@/views/Tasks.vue";
+import Defects from "@/views/Defects.vue";
 import Projects from "@/views/Projects.vue";
 import Reports from "@/views/Reports.vue";
 import Profile from "@/views/Profile.vue";
@@ -16,9 +16,9 @@ const routes = [
     meta: { roles: [UserRole.engineer, UserRole.manager, UserRole.admin] },
   },
   {
-    path: "/tasks",
-    name: "tasks",
-    component: Tasks,
+    path: "/defects",
+    name: "defects",
+    component: Defects,
     meta: { roles: [UserRole.engineer, UserRole.manager, UserRole.admin] },
   },
   {
