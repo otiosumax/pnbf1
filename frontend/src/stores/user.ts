@@ -30,11 +30,19 @@ export const useUserStore = defineStore("user", {
       this.isAuthenticated = false;
       localStorage.removeItem("userStore");
     },
-    register(role: UserRole, mail: string, password: string) {
+    register(
+      role: UserRole,
+      mail: string,
+      password: string,
+      name: string,
+      surname: string
+    ) {
       this.role = role;
       this.mail = mail;
       this.password = password;
       this.isAuthenticated = true;
+      this.name = name;
+      this.surname = surname;
       this.saveToLocalStorage();
     },
     setName(newName: string, newSurname: string) {
