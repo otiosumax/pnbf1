@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { getDefectImages } from "@/stores/images";
-import { useProjectsStore } from "@/stores/projects";
+import { useProjectsStore, DefectStatus } from "@/stores/projects";
 import Icon from "./Icon.vue";
 
 const props = defineProps({
@@ -10,10 +10,12 @@ const props = defineProps({
     required: true,
   },
   onDeleteDefect: Function,
+  isSelected: Boolean,
 });
 
 const projectsStore = useProjectsStore();
 const previewUrl = ref<string | null>(null);
+const isOpen = props.defect.status == DefectStatus.open;
 
 onMounted(async () => {
   const files = await getDefectImages(props.defect.id);
@@ -31,8 +33,10 @@ const deleteDefect = () => {
 
 <template>
   <div
-    class="relative mt-4 w-full border border-gray-300 rounded-lg p-4 shadow hover:shadow-md transition flex gap-4 items-start bg-white">
-    <div class="absolute right-2 top-2 flex gap-2 text-gray-400">
+    class="relative mt-4 w-full border rounded-lg p-4 shadow hover:shadow-md transition flex gap-4 items-start"
+    :class="isSelected?'border-rose-400 bg-rose-50' : 'border-gray-400 bg-white'">
+    <div class="absolute flex right-2 top-2 flex gap-2">
+      <p :class="isOpen? 'text-blue-400' : 'text-gray-400'"> {{ isOpen ? 'Open' : 'Closed' }}</p>
       <Icon @click="deleteDefect()" name="mdiDelete" />
     </div>
     <div v-if="previewUrl" class="w-20 h-20 rounded-md overflow-hidden flex-shrink-0">
