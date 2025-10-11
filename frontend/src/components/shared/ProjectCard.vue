@@ -1,6 +1,6 @@
 <script setup>
 import DefectCard from './DefectCard.vue';
-import Icon from './Icon.vue';
+import Icon from '@/components/shared/Icon.vue';
 
 defineProps({
     project: Object,

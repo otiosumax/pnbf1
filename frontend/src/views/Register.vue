@@ -1,5 +1,5 @@
 <script setup>
-import Icon from '@/components/Icon.vue';
+import Icon from '@/components/shared/Icon.vue';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router'
 import { useUserStore, UserRole } from '@/stores/user';
