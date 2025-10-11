@@ -6,13 +6,16 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const projectsStore = useProjectsStore();
-const defects = projectsStore.getAllDefects();
+const defects = ref(projectsStore.getAllDefects());
 const selectedDefectId = ref(null);
 
 const redirectToRegisterDefect = () => {
     router.push('/defects/register');
 };
 
+const onDeleteDefect = () => {
+    defects.value = projectsStore.getAllDefects();
+}
 
 </script>
 
@@ -23,7 +26,7 @@ const redirectToRegisterDefect = () => {
                 class="bg-rose-400 w-full text-white rounded-lg py-1 px-3 transition hover:bg-rose-500 active:bg-rose-600">
                 Зарегистрироать дефект
             </button>
-            <DefectCard v-for="defect in defects" :defect="defect" />
+            <DefectCard v-for="defect in defects" :defect="defect" :onDeleteDefect="onDeleteDefect" />
         </div>
         <div class="rounded-lg border border-gray-400 shadow-md px-4 py-2">
 

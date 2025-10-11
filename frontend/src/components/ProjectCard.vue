@@ -7,6 +7,7 @@ defineProps({
     selectedProjectId: Number,
     toggleDefects: Function,
     deleteProject: Function,
+    deleteDefect: Function,
 });
 </script>
 
@@ -46,7 +47,7 @@ defineProps({
                             <span class="font-medium">{{ defect.title }}</span> — {{ defect.description }}
                         </li>
                     </ul> -->
-                    <DefectCard v-for="defect in project.defects" :key="defect.id" :defect="defect" />
+                    <DefectCard v-for="defect in project.defects" :key="defect.id" :defect="defect" :deleteDefect="deleteDefect"/>
                 </div>
             </div>
         </Transition>
