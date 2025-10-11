@@ -2,8 +2,10 @@
 import Chart from '@/components/Chart.vue';
 import DefectCard from '@/components/shared/DefectCard.vue';
 import { DefectStatus, useProjectsStore } from '@/stores/projects';
+import { UserRole, useUserStore } from '@/stores/user';
 
 const projectsStore = useProjectsStore();
+const userStore = useUserStore();
 const projects = projectsStore.projects;
 const defects = projectsStore.getAllDefects();
 
@@ -53,13 +55,13 @@ function exportToCSV() {
                 </div>
             </div>
         </div>
-        <div class="grid grid-cols-3 gap-4 w-full">
+        <div v-if="userStore.role != UserRole.engineer" class="grid grid-cols-3 gap-4 w-full">
             <div v-for="project in projects" class="flex flex-col items-center mt-4 border border-gray-400 rounded-lg">
                 <h2 class> {{ project.name }} </h2>
                 <Chart
                     :data="{ 'open': project.defects.filter((d) => { return d.status == DefectStatus.open }).length, 'closed': project.defects.filter((d) => { return d.status == DefectStatus.closed }).length, }" />
             </div>
         </div>
-        <button @click="exportToCSV" class="mt-4 bg-rose-400 text-white cursor-pointer rounded-lg px-3 py-1 transition hover:bg-rose-500 active:bg-rose-600">exportToCSV</button>
+        <button v-if="userStore.role != UserRole.engineer" @click="exportToCSV" class="mt-4 bg-rose-400 text-white cursor-pointer rounded-lg px-3 py-1 transition hover:bg-rose-500 active:bg-rose-600">exportToCSV</button>
     </div>
 </template>
