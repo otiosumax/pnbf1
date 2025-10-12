@@ -1,14 +1,21 @@
 <script setup>
+import { DefectStatus } from '@/stores/projects';
+import Chart from '../Chart.vue';
 import DefectCard from './DefectCard.vue';
 import Icon from '@/components/shared/Icon.vue';
 
-defineProps({
+const props = defineProps({
     project: Object,
     selectedProjectId: Number,
     toggleDefects: Function,
     deleteProject: Function,
     deleteDefect: Function,
 });
+
+const defects = props.project.defects;
+
+const summaryDefectsOpen = defects.filter((d) => { return d.status == DefectStatus.open });
+const summaryDefectsClosed = defects.filter((d) => { return d.status == DefectStatus.closed });
 </script>
 
 <template>
@@ -31,8 +38,8 @@ defineProps({
                 </button>
             </div>
         </div>
-        <Transition name="expand">
 
+        <Transition name="expand">
             <div v-if="selectedProjectId === project.id" class="mt-2 border-t border-gray-300 pt-2">
                 <div v-if="project.defects && project.defects.length === 0" class="flex justify-between">
                     <p class="text-gray-500 italic">Нет дефектов</p>
@@ -42,15 +49,19 @@ defineProps({
                         <p class="text-gray-500 italic">Дефекты:</p>
 
                     </div>
-                    <!-- <ul class="list-disc list-inside text-sm">
-                        <li v-for="defect in project.defects" :key="defect.id">
-                            <span class="font-medium">{{ defect.title }}</span> — {{ defect.description }}
-                        </li>
-                    </ul> -->
-                    <DefectCard v-for="defect in project.defects" :key="defect.id" :defect="defect" :deleteDefect="deleteDefect"/>
+                    <div class="flex gap-4">
+                        <div class="flex-1">
+                            <DefectCard v-for="defect in project.defects" :key="defect.id" :defect="defect"
+                            :deleteDefect="deleteDefect" />
+                        </div>
+                        <div class="w-60 border border-gray-400 rounded-lg">
+                            <Chart :title="project.name" :data="{ 'open': summaryDefectsOpen.length, 'closed': summaryDefectsClosed.length }" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </Transition>
+
     </div>
 </template>
 

@@ -2,6 +2,7 @@
 import { ref, watch, onMounted, computed } from 'vue'
 import { useProjectsStore, type Defect } from '@/stores/projects'
 import { getDefectImages } from '@/stores/images';
+import { UserRole, useUserStore } from '@/stores/user';
 
 
 const props = defineProps<{
@@ -10,18 +11,20 @@ const props = defineProps<{
 }>()
 
 const projectsStore = useProjectsStore();
+const userStore = useUserStore();
 
 const title = ref(props.defect.title);
 const description = ref(props.defect.description);
 const status = ref(props.defect.status);
 const imagesUrls = ref<string[]>([]);
 const selectedImage = ref<string | null>(null);
+const role = userStore.role;
 
 const defect = computed({
-  get: () => props.defect,
-  set: (value) => {
-    projectsStore.updateDefect(value.projectId, value.id, value)
-  }
+    get: () => props.defect,
+    set: (value) => {
+        projectsStore.updateDefect(value.projectId, value.id, value)
+    }
 })
 
 watch(() => props.defect, (newDefect) => {
@@ -48,10 +51,10 @@ onMounted(loadImages);
 const saveChanges = async () => {
     projectsStore.updateDefect(props.defect.projectId, props.defect.id, {
         id: props.defect.id,
-        title: title.value,
-        description: description.value,
+        title: defect.value.title,
+        description: defect.value.description,
         attachments: props.defect.attachments,
-        status: status.value,
+        status: defect.value.status,
         projectId: props.defect.projectId,
     });
 };
@@ -62,18 +65,18 @@ const deleteDefect = async () => {
 };
 </script>
 <template>
-    <div class="flex flex-col gap-4">
+    <div v-if="role == UserRole.engineer || role == UserRole.admin" class="flex flex-col gap-4">
         <label class="flex flex-col">
             Title:
-            <input v-model="title" type="text" class="border border-gray-400 px-3 py-1 rounded-lg" />
+            <input v-model="defect.title" type="text" class="border border-gray-400 px-3 py-1 rounded-lg" />
         </label>
         <label class="flex flex-col">
             Description:
-            <textarea v-model="description" class="border border-gray-400 px-3 py-1 rounded-lg" />
+            <textarea v-model="defect.description" class="border border-gray-400 px-3 py-1 rounded-lg" />
         </label>
         <label>
             Status:
-            <select v-model="status">
+            <select v-model="defect.status">
                 <option value="open">Open</option>
                 <option value="closed">Closed</option>
             </select>
@@ -90,6 +93,34 @@ const deleteDefect = async () => {
             <button class="bg-rose-400 px-3 py-1 rounded-lg text-white transition hover:bg-rose-500 active:bg-rose-600"
                 @click="deleteDefect">Удалить</button>
         </div>
+    </div>
+
+    <div v-else class="flex flex-col gap-4">
+        <label class="flex flex-col">
+            Title:
+            <p type="text" class="border border-gray-400 px-3 py-1 rounded-lg">{{ defect.title }} </p>
+        </label>
+        <label class="flex flex-col">
+            Description:
+            <p class="border border-gray-400 px-3 py-1 rounded-lg">{{ defect.description }} </p>
+        </label>
+        <label class="flex gap-2">
+            Status:
+            <p> {{ defect.status }}</p>
+        </label>
+        <div class="flex flex-wrap gap-4">
+            <div @click="selectedImage = img" class=" h-30 rounded-md overflow-hidden flex-shrink-0"
+                v-for="(img, index) in imagesUrls" :key="index">
+                <img class="w-full h-full object-cover" :src="img" alt="attachment" />
+            </div>
+        </div>
+        <div class="flex justify-between">
+            <button class="bg-rose-400 px-3 py-1 rounded-lg text-white transition hover:bg-rose-500 active:bg-rose-600"
+                @click="saveChanges">Сохранить</button>
+            <button class="bg-rose-400 px-3 py-1 rounded-lg text-white transition hover:bg-rose-500 active:bg-rose-600"
+                @click="deleteDefect">Удалить</button>
+        </div>
+
     </div>
     <!-- Модалка для просмотра картинки -->
     <div v-if="selectedImage" class="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50"

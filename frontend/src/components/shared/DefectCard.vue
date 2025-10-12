@@ -15,9 +15,7 @@ const props = defineProps({
 });
 
 const router = useRouter();
-const projectsStore = useProjectsStore();
 const previewUrl = ref<string | null>(null);
-const isOpen = props.defect.status == DefectStatus.open;
 
 onMounted(async () => {
   const files = await getDefectImages(props.defect.id);
@@ -25,12 +23,6 @@ onMounted(async () => {
     previewUrl.value = URL.createObjectURL(files[0]);
   }
 });
-
-const deleteDefect = () => {
-  if (!confirm("Удалить дефект?")) return;
-  projectsStore.deleteDefect(props.defect.projectId, props.defect.id);
-  props.onDeleteDefect?.();
-}
 </script>
 
 <template>
@@ -38,7 +30,7 @@ const deleteDefect = () => {
     class="relative mt-4 w-full border rounded-lg p-4 shadow hover:shadow-md transition flex gap-4 items-start"
     :class="isSelected ? 'border-rose-400 bg-rose-50' : 'border-gray-400 bg-white'">
     <div class="absolute flex right-2 top-2 flex gap-2">
-      <p :class="isOpen ? 'text-blue-400' : 'text-gray-400'"> {{ isOpen ? 'Open' : 'Closed' }}</p>
+      <p :class="defect.status == DefectStatus.open ? 'text-blue-400' : 'text-gray-400'"> {{ defect.status == DefectStatus.open ? 'Open' : 'Closed' }}</p>
     </div>
     <div v-if="previewUrl" class="w-20 h-20 rounded-md overflow-hidden flex-shrink-0">
       <img :src="previewUrl" alt="preview" class="object-cover w-full h-full" />
