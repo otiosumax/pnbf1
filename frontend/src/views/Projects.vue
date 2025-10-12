@@ -1,7 +1,8 @@
 <script setup>
-import { useProjectsStore } from '@/stores/projects';
+import { DefectStatus, useProjectsStore } from '@/stores/projects';
 import { onMounted, ref } from 'vue';
 import ProjectCard from '@/components/shared/ProjectCard.vue';
+import Chart from '@/components/Chart.vue';
 
 const projects = ref([]);
 const projectsStore = useProjectsStore();
@@ -27,10 +28,10 @@ const createProject = () => {
 };
 
 const deleteProject = (id) => {
-  if (!confirm("Вы уверены, что хотите удалить этот проект?")) return;
+    if (!confirm("Вы уверены, что хотите удалить этот проект?")) return;
 
-  projectsStore.deleteProject(id);
-  projects.value = projectsStore.projects;
+    projectsStore.deleteProject(id);
+    projects.value = projectsStore.projects;
 };
 
 </script>
@@ -44,16 +45,10 @@ const deleteProject = (id) => {
                 Создать проект
             </button>
         </div>
-
         <div class="flex flex-col gap-4 my-4">
-            <ProjectCard
-              v-for="project in projects"
-              :key="project.id"
-              :project="project"
-              :selectedProjectId="selectedProjectId"
-              :toggleDefects="toggleDefects"
-              :deleteProject="deleteProject"
-            />
+                <ProjectCard v-for="project in projects" :key="project.id" :project="project"
+                :selectedProjectId="selectedProjectId" :toggleDefects="toggleDefects"
+                :deleteProject="deleteProject" />
         </div>
     </div>
 </template>

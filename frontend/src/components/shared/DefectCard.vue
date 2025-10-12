@@ -15,7 +15,6 @@ const props = defineProps({
 });
 
 const router = useRouter();
-const projectsStore = useProjectsStore();
 const previewUrl = ref<string | null>(null);
 
 onMounted(async () => {

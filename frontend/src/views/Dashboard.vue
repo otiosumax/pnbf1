@@ -12,9 +12,6 @@ const defects = projectsStore.getAllDefects();
 const summaryDefectsOpen = defects.filter((d) => { return d.status == DefectStatus.open });
 const summaryDefectsClosed = defects.filter((d) => { return d.status == DefectStatus.closed });
 
-const randomDefectIndex = Math.floor(Math.random() * defects.length);
-console.log(summaryDefectsClosed)
-
 function exportToCSV() {
     const rows = [
         ['Project', 'Open defects', 'Closed defects']
