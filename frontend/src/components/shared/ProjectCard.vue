@@ -1,12 +1,13 @@
 <script setup>
 import DefectCard from './DefectCard.vue';
-import Icon from './Icon.vue';
+import Icon from '@/components/shared/Icon.vue';
 
 defineProps({
     project: Object,
     selectedProjectId: Number,
     toggleDefects: Function,
     deleteProject: Function,
+    deleteDefect: Function,
 });
 </script>
 
@@ -35,16 +36,10 @@ defineProps({
             <div v-if="selectedProjectId === project.id" class="mt-2 border-t border-gray-300 pt-2">
                 <div v-if="project.defects && project.defects.length === 0" class="flex justify-between">
                     <p class="text-gray-500 italic">Нет дефектов</p>
-                    <!-- <button
-                        class="rounded-lg bg-rose-400 px-3 py-1 text-white transition hover:bg-rose-500 active:bg-rose-600">Зарегистрировать
-                        дефект</button> -->
                 </div>
                 <div v-else-if="project.defects && project.defects.length > 0">
                     <div class="flex justify-between">
                         <p class="text-gray-500 italic">Дефекты:</p>
-                        <!-- <button
-                            class="rounded-lg bg-rose-400 px-3 py-1 text-white transition hover:bg-rose-500 active:bg-rose-600">Зарегистрировать
-                            дефект</button> -->
 
                     </div>
                     <!-- <ul class="list-disc list-inside text-sm">
@@ -52,7 +47,7 @@ defineProps({
                             <span class="font-medium">{{ defect.title }}</span> — {{ defect.description }}
                         </li>
                     </ul> -->
-                    <DefectCard v-for="defect in project.defects" :key="defect.id"></DefectCard>
+                    <DefectCard v-for="defect in project.defects" :key="defect.id" :defect="defect" :deleteDefect="deleteDefect"/>
                 </div>
             </div>
         </Transition>

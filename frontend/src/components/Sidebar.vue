@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import SidebarItem from "./SidebarItem.vue"
-import Icon from "./Icon.vue"
+import Icon from "./shared/Icon.vue"
 import { useUserStore, UserRole } from "@/stores/user"
 import { useRouter } from "vue-router";
 import { onMounted } from "vue";

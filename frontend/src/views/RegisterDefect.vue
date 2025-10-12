@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useProjectsStore } from '@/stores/projects';
 import { saveDefectImage } from '@/stores/images';
@@ -7,18 +7,37 @@ import { saveDefectImage } from '@/stores/images';
 const router = useRouter();
 const projectsStore = useProjectsStore();
 
+const projects = projectsStore.projects;
 const projectId = ref<number | null>(null);
 const title = ref('');
 const description = ref('');
 
-const projects = projectsStore.projects;
+onMounted(() => {
+    projectsStore.loadFromLocalStorage();
+});
 
-const registerDefect = () => {
+const registerDefect = async () => {
     if (!projectId.value || !title.value || !description.value) {
-        alert('Заполни все поля!');
+        alert("Заполни все поля!");
         return;
     }
-    router.push('/defects');
+
+    const defectId = projectsStore.addDefect(
+        projectId.value,
+        title.value,
+        description.value,
+        []
+    );
+
+    if (!defectId) {
+        alert("Ошибка при создании дефекта!");
+        return;
+    }
+
+    for (const file of files.value) {
+        await saveDefectImage(defectId, file);
+    }
+    router.push("/defects");
 };
 
 const files = ref<File[]>([]);
@@ -26,7 +45,14 @@ const files = ref<File[]>([]);
 const handleFiles = (event: Event) => {
     const input = event.target as HTMLInputElement;
     if (!input.files) return;
-    files.value = Array.from(input.files);
+    // Собираем новые файлы и добавляем к существующим
+    const newFiles = Array.from(input.files);
+    let combined = files.value.concat(newFiles);
+    if (combined.length > 5) {
+        combined = combined.slice(0, 5);
+        alert("Можно загрузить не более 5 файлов.");
+    }
+    files.value = combined;
 };
 
 const createObjectURL = (file: File) => {

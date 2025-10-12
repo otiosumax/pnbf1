@@ -11,6 +11,7 @@ export interface Defect {
   title: string;
   description: string;
   status: DefectStatus;
+  attachments: string[];
 }
 
 export interface Project {
@@ -64,7 +65,12 @@ export const useProjectsStore = defineStore("projects", {
     },
 
     // === CRUD дефекты ===
-    addDefect(projectId: number, title: string, description: string) {
+    addDefect(
+      projectId: number,
+      title: string,
+      description: string,
+      attachments: string[]
+    ) {
       const project = this.projects.find((p) => p.id === projectId);
       if (project) {
         const newDefect: Defect = {
@@ -73,10 +79,13 @@ export const useProjectsStore = defineStore("projects", {
           projectId: project.id,
           description,
           status: DefectStatus.open,
+          attachments,
         };
         project.defects.push(newDefect);
         this.saveToLocalStorage();
+        return newDefect.id; // 💡 возвращаем id
       }
+      return null;
     },
 
     getAllDefects() {

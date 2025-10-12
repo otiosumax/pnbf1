@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-import Icon from './Icon.vue'
+import Icon from './shared/Icon.vue'
 
 const currentTime = ref(new Date().toLocaleTimeString());
 const currentDate = ref(new Date().toLocaleDateString());

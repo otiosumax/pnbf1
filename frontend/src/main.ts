@@ -1,15 +1,20 @@
-import './assets/main.css'
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import App from './App.vue'
-import router from './router'
-import { useUserStore } from './stores/user'
-
+import "./assets/main.css";
+import { createApp } from "vue";
+import { createPinia } from "pinia";
+import App from "./App.vue";
+import router from "./router";
+import { useUserStore } from "./stores/user";
+import { useProjectsStore } from "./stores/projects";
 
 const app = createApp(App);
-app.use(router);
-app.use(createPinia());
-app.mount('#app');
+const pinia = createPinia();
 
-const store = useUserStore();
-store.loadFromLocalStorage();
+app.use(router);
+app.use(pinia);
+
+const userStore = useUserStore(pinia);
+userStore.loadFromLocalStorage();
+const projectsStore = useProjectsStore(pinia);
+projectsStore.loadFromLocalStorage();
+
+app.mount("#app");
