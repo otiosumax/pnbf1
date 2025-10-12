@@ -48,10 +48,10 @@ onMounted(loadImages);
 const saveChanges = async () => {
     projectsStore.updateDefect(props.defect.projectId, props.defect.id, {
         id: props.defect.id,
-        title: title.value,
-        description: description.value,
+        title: defect.value.title,
+        description: defect.value.description,
         attachments: props.defect.attachments,
-        status: status.value,
+        status: defect.value.status,
         projectId: props.defect.projectId,
     });
 };
@@ -65,15 +65,15 @@ const deleteDefect = async () => {
     <div class="flex flex-col gap-4">
         <label class="flex flex-col">
             Title:
-            <input v-model="title" type="text" class="border border-gray-400 px-3 py-1 rounded-lg" />
+            <input v-model="defect.title" type="text" class="border border-gray-400 px-3 py-1 rounded-lg" />
         </label>
         <label class="flex flex-col">
             Description:
-            <textarea v-model="description" class="border border-gray-400 px-3 py-1 rounded-lg" />
+            <textarea v-model="defect.description" class="border border-gray-400 px-3 py-1 rounded-lg" />
         </label>
         <label>
             Status:
-            <select v-model="status">
+            <select v-model="defect.status">
                 <option value="open">Open</option>
                 <option value="closed">Closed</option>
             </select>
