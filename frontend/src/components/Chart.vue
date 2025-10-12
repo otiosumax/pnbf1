@@ -20,7 +20,7 @@ const chartData = {
   datasets: [
     {
       data: Object.values(props.data),
-      backgroundColor: ['#f87171', '#99a1af'],
+      backgroundColor: ['#60a5fa', '#99a1af'],
       borderWidth: 1
     }
   ]
