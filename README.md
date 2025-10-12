@@ -54,6 +54,6 @@ Frontend:
 	•	TypeScript
 	•	Pinia (для состояния)
 	•	Vite
-	•	TailwindCSS / shadcn для стилизации
+	•	TailwindCSS для стилизации
  	•	IndexedDB — хранение изображений локально до загрузки
 
