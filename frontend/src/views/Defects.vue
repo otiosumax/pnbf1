@@ -8,8 +8,8 @@ import { useRouter, useRoute } from 'vue-router';
 const router = useRouter();
 const route = useRoute();
 const projectsStore = useProjectsStore();
-const defects = ref(projectsStore.getAllDefects());
-const selectedDefectId = ref(null);
+const defects = computed(() => projectsStore.getAllDefects());
+const selectedDefectId = ref(0);
 
 const redirectToRegisterDefect = () => {
     router.push('/defects/register');

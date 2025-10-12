@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, onMounted } from 'vue'
+import { ref, watch, onMounted, computed } from 'vue'
 import { useProjectsStore, type Defect } from '@/stores/projects'
 import { getDefectImages } from '@/stores/images';
 
@@ -15,6 +15,14 @@ const title = ref(props.defect.title);
 const description = ref(props.defect.description);
 const status = ref(props.defect.status);
 const imagesUrls = ref<string[]>([]);
+const selectedImage = ref<string | null>(null);
+
+const defect = computed({
+  get: () => props.defect,
+  set: (value) => {
+    projectsStore.updateDefect(value.projectId, value.id, value)
+  }
+})
 
 watch(() => props.defect, (newDefect) => {
     title.value = newDefect.title;
@@ -71,7 +79,8 @@ const deleteDefect = async () => {
             </select>
         </label>
         <div class="flex flex-wrap gap-4">
-            <div class=" h-30 rounded-md overflow-hidden flex-shrink-0" v-for="(img, index) in imagesUrls" :key="index">
+            <div @click="selectedImage = img" class=" h-30 rounded-md overflow-hidden flex-shrink-0"
+                v-for="(img, index) in imagesUrls" :key="index">
                 <img class="w-full h-full object-cover" :src="img" alt="attachment" />
             </div>
         </div>
@@ -81,6 +90,14 @@ const deleteDefect = async () => {
             <button class="bg-rose-400 px-3 py-1 rounded-lg text-white transition hover:bg-rose-500 active:bg-rose-600"
                 @click="deleteDefect">Удалить</button>
         </div>
+    </div>
+    <!-- Модалка для просмотра картинки -->
+    <div v-if="selectedImage" class="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50"
+        @click="selectedImage = null">
+        <img :src="selectedImage" class="max-w-[90%] max-h-[90%] rounded-lg shadow-lg" @click.stop />
+        <button class="absolute top-5 right-5 text-white text-3xl" @click="selectedImage = null">
+            ✕
+        </button>
     </div>
     <!--
     <label>
@@ -92,4 +109,4 @@ const deleteDefect = async () => {
     </label>
 
   </div> -->
-</template> 
+</template>

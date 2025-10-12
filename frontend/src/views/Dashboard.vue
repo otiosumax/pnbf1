@@ -44,14 +44,14 @@ function exportToCSV() {
             <div
                 class="flex flex-col h-full p-4 gap-2 items-center border border-gray-400 rounded-lg flex-1 overflow-auto">
                 <p>Summary</p>
-                <div class="w-60">
+                <div class="h-60">
                     <Chart :data="{ 'open': summaryDefectsOpen.length, 'closed': summaryDefectsClosed.length }" />
                 </div>
             </div>
-            <div class="border border-gray-400 rounded-lg p-4 flex-1 overflow-auto">
-                <p>Random defect</p>
+            <div class="h-76 border border-gray-400 rounded-lg p-4 flex-1 overflow-auto">
+                <p>Open defects</p>
                 <div class="flex flex-col">
-                    <DefectCard :defect="defects[randomDefectIndex]" />
+                    <DefectCard v-for="defect in summaryDefectsOpen" :defect="defect" />
                 </div>
             </div>
         </div>
@@ -62,6 +62,9 @@ function exportToCSV() {
                     :data="{ 'open': project.defects.filter((d) => { return d.status == DefectStatus.open }).length, 'closed': project.defects.filter((d) => { return d.status == DefectStatus.closed }).length, }" />
             </div>
         </div>
-        <button v-if="userStore.role != UserRole.engineer" @click="exportToCSV" class="mt-4 bg-rose-400 text-white cursor-pointer rounded-lg px-3 py-1 transition hover:bg-rose-500 active:bg-rose-600">exportToCSV</button>
+        <button v-if="userStore.role != UserRole.engineer" @click="exportToCSV"
+            class="mt-4 bg-rose-400 text-white cursor-pointer rounded-lg px-3 py-1 transition hover:bg-rose-500 active:bg-rose-600">
+            Export to CSV
+        </button>
     </div>
 </template>
