@@ -47,7 +47,7 @@ watch(
 
 <template>
     <div class="grid grid-cols-2 gap-4 relative">
-        <div class="flex flex-col items-center rounded-lg border border-gray-400 shadow-md px-4 py-2">
+        <div class="flex flex-col items-center rounded-lg border border-gray-400 shadow-md px-4 py-2 h-max-full">
             <button @click="redirectToRegisterDefect"
                 class="bg-rose-400 w-full text-white rounded-lg py-1 px-3 transition hover:bg-rose-500 active:bg-rose-600">
                 Register defect

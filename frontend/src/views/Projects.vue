@@ -2,19 +2,30 @@
 import { DefectStatus, useProjectsStore } from '@/stores/projects';
 import { onMounted, ref } from 'vue';
 import ProjectCard from '@/components/shared/ProjectCard.vue';
-import Chart from '@/components/Chart.vue';
+import { useRoute, useRouter } from 'vue-router';
 
 const projects = ref([]);
 const projectsStore = useProjectsStore();
-const selectedProjectId = ref(null);
+const route = useRoute();
+const router = useRouter();
+const selectedProjectId = ref(0);
 
 onMounted(() => {
     // projectsStore.loadFromLocalStorage();
     projects.value = projectsStore.projects;
+    if (route.params.id) {
+        selectedProjectId.value = Number(route.params.id);
+    }
 });
 
-const toggleDefects = (id) => {
-    selectedProjectId.value = selectedProjectId.value === id ? null : id;
+const openProject = (id) => {
+    if (selectedProjectId.value === id) {
+        router.push('/projects');
+        selectedProjectId.value = null;
+    } else {
+        router.push('/projects/' + id);
+        selectedProjectId.value = id;
+    }
 };
 
 const createProject = () => {
@@ -47,7 +58,7 @@ const deleteProject = (id) => {
         </div>
         <div class="flex flex-col gap-4 my-4">
                 <ProjectCard v-for="project in projects" :key="project.id" :project="project"
-                :selectedProjectId="selectedProjectId" :toggleDefects="toggleDefects"
+                :selectedProjectId="selectedProjectId" :openProject="openProject"
                 :deleteProject="deleteProject" />
         </div>
     </div>

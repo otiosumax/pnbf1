@@ -41,6 +41,12 @@ const routes = [
     meta: { roles: [UserRole.manager, UserRole.admin] },
   },
   {
+    path: "/projects/:id",
+    name: "projectDetails",
+    component: Projects,
+    meta: { roles: [UserRole.manager, UserRole.admin] },
+  },
+  {
     path: "/reports",
     name: "reports",
     component: Reports,

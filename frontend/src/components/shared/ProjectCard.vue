@@ -7,7 +7,7 @@ import Icon from '@/components/shared/Icon.vue';
 const props = defineProps({
     project: Object,
     selectedProjectId: Number,
-    toggleDefects: Function,
+    openProject: Function,
     deleteProject: Function,
     deleteDefect: Function,
 });
@@ -33,7 +33,7 @@ const summaryDefectsClosed = defects.filter((d) => { return d.status == DefectSt
                 </div>
                 <button
                     class="bg-rose-400 text-white px-3 py-1 rounded-lg hover:bg-rose-500 active:bg-rose-600 transition"
-                    @click="toggleDefects(project.id)">
+                    @click="openProject(project.id)">
                     {{ selectedProjectId === project.id ? 'Скрыть дефекты' : 'Показать дефекты' }}
                 </button>
             </div>
