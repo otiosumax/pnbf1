@@ -54,7 +54,7 @@ const handleRegister = () => {
                         <option :value="UserRole.admin">Admin</option>
                     </select>
                 </div>
-                <button class="w-24 py-2 rounded-lg bg-rose-400 mt-4 transition hover:bg-rose-500 active:bg-rose-600">
+                <button class="w-24 py-2 rounded-lg bg-rose-400 text-white mt-4 transition hover:bg-rose-500 active:bg-rose-600">
                     Register
                 </button>
                 <div class="mt-4">
