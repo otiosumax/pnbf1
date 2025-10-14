@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import Icon from './shared/Icon.vue'
+import Searchbar from './Searchbar.vue';
 
 const currentTime = ref(new Date().toLocaleTimeString());
 const currentDate = ref(new Date().toLocaleDateString());
@@ -35,6 +36,9 @@ onUnmounted(() => {
             <Icon name="mdiMagnify"
                 class="absolute right-0 bg-rose-400 text-white rounded-r-xl h-10 w-10 cursor-pointer transition hover:bg-rose-500 active:bg-rose-600" />
         </div> -->
+        <div class="flex-1">
+            <Searchbar />
+        </div>
 
         <div class="flex flex-col cursor-default select-none">
             <p class="text-bold">{{ currentDate }}</p>

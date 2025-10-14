@@ -18,7 +18,7 @@ const route = useRoute();
   <div  v-if="route.name !== 'login' && route.name !== 'register'" class="grid gap-x-8 gap-y-8 grid-rows-[4rem_1fr] grid-cols-[12rem_1fr_0rem] h-screen">
     <!-- Показываем header/sidebar только если мы НЕ на login -->
     <Header class="row-span-1 col-span-3" />
-    <Sidebar class="row-span-2 col-span-1" />
+    <Sidebar class="row-span-2 col-span-1 sticky top-0" />
     <div>
       <RouterView />
     </div>
